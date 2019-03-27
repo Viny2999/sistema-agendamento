@@ -1,0 +1,4 @@
+{
+  "local": "mongodb://localhost:27017/backend-assistant",
+  "mlab": "mongodb://admin:admin10@ds137651.mlab.com:37651/backend-assistant"
+}
