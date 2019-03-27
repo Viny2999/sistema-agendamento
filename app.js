@@ -2,6 +2,7 @@ const bodyParser = require("body-parser");
 const express = require("express");
 
 const mainRouter = require("./routes/mainRouter");
+const reservasRouter = require("./routes/reservasRouter");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -27,7 +28,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use("/", mainRouter);
+app.use("/", mainRouter, reservasRouter);
 
 app.use(function (req, res, next) {
   res.status(404);
