@@ -22,29 +22,36 @@ const getOneReserva = async (req, res) => {
 };
 
 const postReserva = async (req, res) => {
-  const retorno = gerirReservas.criarReserva(req.body);
-
   try {
-    let result = await Reservas.insertOne(retorno);
-    res.send(result);
+    const retorno = gerirReservas.criarReserva(req.body);
+
+    // try {
+    //   let result = await Reservas.insertOne(retorno);
+    //   res.send(result);
+    // } catch (e) {
+    //   res.status(500);
+    //   res.send(e);
+    // }
+
   } catch (e) {
-    res.status(500);
-    res.send(e);
+    res.status(422);
+    res.send();
   }
 };
 
 const putReserva = async (req, res) => {
   let update = req.body
-  if (update.inicioEm && update.fimEm) {
-    update = gerirReservas.valorReserva(update);
-  }
-
-  try {
-    let result = await Reservas.updateOne(req.params.id, update);
-    res.send(result);
-  } catch (e) {
-    res.status(500);
-    res.send(e);
+  if (gerirReservas.checarReserva(update) != false) {
+    try {
+      let result = await Reservas.updateOne(req.params.id, update);
+      res.send(result);
+    } catch (e) {
+      res.status(500);
+      res.send(e);
+    }
+  } else {
+    res.status(400);
+    res.send();
   }
 };
 

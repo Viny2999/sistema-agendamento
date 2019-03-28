@@ -6,6 +6,11 @@ const criarReserva = (req) => {
     criadoEm: new Date()
   };
 
+  if (!tempoReserva) {
+    console.log("foi");
+    throw e;
+  }
+
   return valorReserva(Object.assign(req, novaReserva));
 }
 
@@ -16,6 +21,20 @@ const cancelarReserva = () => {
   };
 
   return cancelamento;
+}
+
+const checarReserva = (reserva) => {
+  if (reserva.inicioEm && reserva.fimEm) {
+    reserva = valorReserva(reserva);
+  }
+
+  if (reserva.status) {
+    if (reserva.status != "ativo" || reserva.status != "cancelado" || reserva.status != "pago") {
+      reserva = false;
+    }
+  }
+
+  return reserva;
 }
 
 const valorReserva = (reserva) => {
@@ -33,6 +52,19 @@ const valorReserva = (reserva) => {
   return Object.assign(reserva, valores)
 }
 
+const tempoReserva = (reserva) => {
+  let dataInicio = new Date(reserva.inicioEm);
+  let dataFim = new Date(reserva.fimEm);
+  let diffMs = dataFim - dataInicio;
+  let minutes = Math.floor(diffMs / 60000);
+
+  if (minutes % 60 == 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 exports.criarReserva = criarReserva;
-exports.valorReserva = valorReserva;
+exports.checarReserva = checarReserva;
 exports.cancelarReserva = cancelarReserva;
