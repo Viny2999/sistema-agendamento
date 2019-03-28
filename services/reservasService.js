@@ -1,4 +1,5 @@
 const Reservas = require("../utils/DB");
+const gerirReservas = require("../utils/gerirReservas");
 
 const getAllReserva = async (req, res) => {
   try {
@@ -21,8 +22,10 @@ const getOneReserva = async (req, res) => {
 };
 
 const postReserva = async (req, res) => {
+  const retorno = gerirReservas.criarReserva(req.body);
+
   try {
-    let result = await Reservas.insertOne(req.body);
+    let result = await Reservas.insertOne(retorno);
     res.send(result);
   } catch (e) {
     res.status(500);
@@ -31,8 +34,13 @@ const postReserva = async (req, res) => {
 };
 
 const putReserva = async (req, res) => {
+  let update = req.body
+  if (update.inicioEm && update.fimEm) {
+    update = gerirReservas.valorReserva(update);
+  }
+
   try {
-    let result = await Reservas.updateOne(req.params.id, req.body);
+    let result = await Reservas.updateOne(req.params.id, update);
     res.send(result);
   } catch (e) {
     res.status(500);
@@ -41,8 +49,10 @@ const putReserva = async (req, res) => {
 };
 
 const deleteReserva = async (req, res) => {
+  let cancelar = gerirReservas.cancelarReserva();
+
   try {
-    let result = await Reservas.deleteOne(req.params.id);
+    let result = await Reservas.updateOne(req.params.id, cancelar);
     res.send(result);
   } catch (e) {
     res.status(500);

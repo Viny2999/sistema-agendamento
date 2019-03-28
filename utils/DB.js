@@ -55,19 +55,7 @@ const updateOne = async (id, obj) => {
   client.close();
 }
 
-const deleteOne = async (id) => {
-  try {
-    await connect();
-    db.collection(collection).deleteOne({ _id: ObjectId(id) });
-    return { status: "Success" };
-  } catch (e) {
-    console.error(e.stack);
-    throw (e.stack);
-  }
-  client.close();
-}
 exports.findAll = findAll;
 exports.findById = findById;
 exports.insertOne = insertOne;
 exports.updateOne = updateOne;
-exports.deleteOne = deleteOne;
