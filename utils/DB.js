@@ -31,6 +31,13 @@ const findById = (id) => {
   return find(collection, { _id: ObjectId(id) });
 }
 
+const findByDate = (rangeDate) => {
+  return find(collection, {
+    inicioEm: { $gte: new Date(rangeDate.inicioEm) },
+    fimEm: { $lte: new Date(rangeDate.fimEm) }
+  });
+}
+
 const insertOne = async (obj) => {
   try {
     await connect();
@@ -57,5 +64,6 @@ const updateOne = async (id, obj) => {
 
 exports.findAll = findAll;
 exports.findById = findById;
+exports.findByDate = findByDate;
 exports.insertOne = insertOne;
 exports.updateOne = updateOne;
