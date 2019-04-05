@@ -3,6 +3,7 @@ const express = require("express");
 
 const mainRouter = require("./routes/mainRouter");
 const reservasRouter = require("./routes/reservasRouter");
+const disponibilidadeRouter = require("./routes/disponibilidadeRouter");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -28,7 +29,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use("/", mainRouter, reservasRouter);
+app.use("/", mainRouter, reservasRouter, disponibilidadeRouter);
 
 app.use(function (req, res, next) {
   res.status(404);

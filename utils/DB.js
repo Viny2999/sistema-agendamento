@@ -33,6 +33,7 @@ const findById = (id) => {
 
 const findByDate = (rangeDate) => {
   return find(collection, {
+    tipo: rangeDate.tipo,
     inicioEm: { $gte: new Date(rangeDate.inicioEm) },
     fimEm: { $lte: new Date(rangeDate.fimEm) }
   });

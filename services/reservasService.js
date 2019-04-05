@@ -23,9 +23,10 @@ const getOneReserva = async (req, res) => {
 
 const postReserva = async (req, res) => {
   try {
-    const retorno = gerirReservas.criarReserva(req.body);
+    const retorno = await gerirReservas.criarReserva(req.body);
     if (retorno) {
       try {
+        console.log(retorno);
         let result = await Reservas.insertOne(retorno);
         res.send(result);
       } catch (e) {
@@ -47,13 +48,13 @@ const putReserva = async (req, res) => {
   try {
     if (gerirReservas.checarReserva(update) != false) {
 
-      // try {
-      //   let result = await Reservas.updateOne(req.params.id, update);
-      //   res.send(result);
-      // } catch (e) {
-      //   res.status(500);
-      //   res.send(e);
-      // }
+      try {
+        let result = await Reservas.updateOne(req.params.id, update);
+        res.send(result);
+      } catch (e) {
+        res.status(500);
+        res.send(e);
+      }
 
     } else {
       res.status(400);
