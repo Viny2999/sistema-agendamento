@@ -1,62 +1,46 @@
 const Reservas = require("../utils/DB");
+const Erro = require("./erros");
 const VALOR_POR_HORA = 30.00;
 
-const criarReserva = async (req) => {
+const criarReserva = async (reserva) => {
   let novaReserva = {
-    inicioEm: new Date(req.inicioEm),
-    fimEm: new Date(req.fimEm),
+    inicioEm: new Date(reserva.inicioEm),
+    fimEm: new Date(reserva.fimEm),
     status: "ativa",
     criadoEm: new Date()
   };
 
+  if (reserva.tipo) {
+    if ((reserva.tipo != "SAIBRO") && (reserva.tipo != "HARD")) {
+      throw Erro.TIPO_INEXISTENTE;
+    };
+  } else {
+    throw Erro.TIPO_NAO_INSERIDO
+  };
 
 
-  if (req.tipo) {
-    if ((req.tipo != "SAIBRO") && (req.tipo != "HARD")) {
-      throw {
-        error: {
-          message: "Tipo de Quadra não existente.",
-          code: "TIPO_INEXISTENTE"
-        }
-      };
-    }
-  }
 
-
-  if (novaReserva.inicioEm && novaReserva.fimEm) {
+  if (reserva.inicioEm && reserva.fimEm) {
     if (novaReserva.inicioEm == "Invalid Date" && novaReserva.fimEm == "Invalid Date") {
-      throw {
-        error: {
-          message: "Formato de Data Inválido.",
-          code: "DATA_INVALIDA"
-        }
-      };
+      throw Erro.DATA_INVALIDA;
     }
 
-    novaReserva = valorReserva(novaReserva);
+    novaReserva = duracaoValorReserva(novaReserva);
 
-    let check = await checarRange(req);
+    const check = await checarRange(reserva);
 
     if (!check) {
-      throw {
-        error: {
-          message: "O horário solicitado não está disponível, favor selecione um outro horário.",
-          code: "HORARIO_INDISPONIVEL"
-        }
-      };
+      throw Erro.HORARIO_INDISPONIVEL;
     }
 
     if (!tempoReserva(novaReserva)) {
-      throw {
-        error: {
-          message: "O horário solicitado não é valido, favor selecione horas inteiras.",
-          code: "HORARIO_INVALIDO"
-        }
-      };
+      throw Erro.HORARIO_INVALIDO;
     }
+  } else {
+    throw Erro.HORARIO_NAO_INSERIDO;
   }
 
-  return valorReserva(Object.assign(req, novaReserva));
+  return duracaoValorReserva(Object.assign(reserva, novaReserva));
 }
 
 const cancelarReserva = () => {
@@ -68,34 +52,29 @@ const cancelarReserva = () => {
   return cancelamento;
 }
 
-const checarReserva = (reserva) => {
+const checarReserva = async (reserva) => {
   if (reserva.tipo) {
     if ((reserva.tipo != "SAIBRO") && (reserva.tipo != "HARD")) {
-      return false;
+      throw Erro.TIPO_INEXISTENTE;
     }
-  }
+  } else {
+    throw Erro.TIPO_NAO_INSERIDO
+  };
 
   if (reserva.inicioEm && reserva.fimEm) {
-    reserva = valorReserva(reserva);
+    reserva = duracaoValorReserva(reserva);
 
+    const check = await checarRange(reserva);
 
-    if (!checarRange(reserva)) {
-      throw {
-        error: {
-          message: "O horário solicitado não está disponível, favor selecione um outro horário.",
-          code: "HORARIO_INDISPONIVEL"
-        }
-      };
+    if (!check) {
+      throw Erro.HORARIO_INDISPONIVEL;
     }
 
-    if (!tempoReserva(reserva)) {
-      throw {
-        error: {
-          message: "O horário solicitado não é valido, favor selecione horas inteiras.",
-          code: "HORARIO_INVALIDO"
-        }
-      };
+    if (!tempoReserva(novaReserva)) {
+      throw Erro.HORARIO_INVALIDO;
     }
+  } else {
+    throw Erro.HORARIO_NAO_INSERIDO;
   }
 
   if (reserva.status) {
@@ -108,17 +87,16 @@ const checarReserva = (reserva) => {
 }
 
 const checarRange = async (reserva) => {
-  let a = await Reservas.findByDate(reserva);
+  let reservasExistentes = await Reservas.findByDate(reserva);
 
-  console.log(a.length);
-  if (a.length < 1) {
+  if (reservasExistentes.length < 1) {
     return true;
   } else {
     return false;
   }
 }
 
-const valorReserva = (reserva) => {
+const duracaoValorReserva = (reserva) => {
   let minutes = calcularMinutos(reserva);
 
   let valor = minutes / 60;
@@ -154,3 +132,4 @@ exports.checarReserva = checarReserva;
 exports.cancelarReserva = cancelarReserva;
 
 exports.checarRange = checarRange;
+exports.duracaoValorReserva = duracaoValorReserva;

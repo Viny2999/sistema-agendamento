@@ -1,0 +1,38 @@
+{
+  "DATA_INVALIDA": {
+    "error": {
+      "message": "Formato de Data Inválido.",
+      "code": "DATA_INVALIDA"
+    }
+  },
+  "HORARIO_INDISPONIVEL": {
+    "error": {
+      "message": "O horário solicitado não está disponível, favor selecione um outro horário.",
+      "code": "HORARIO_INDISPONIVEL"
+    }
+  },
+  "HORARIO_INVALIDO": {
+    "error": {
+      "message": "O horário solicitado não é valido, favor selecione horas inteiras.",
+      "code": "HORARIO_INVALIDO"
+    }
+  },
+  "HORARIO_NAO_INSERIDO": {
+    "error": {
+      "message": "Horario não inserido",
+      "code": "HORARIO_NAO_INSERIDO"
+    }
+  },
+  "TIPO_INEXISTENTE": {
+    "error": {
+      "message": "Tipo de Quadra não existente.",
+      "code": "TIPO_INEXISTENTE"
+    }
+  },
+  "TIPO_NAO_INSERIDO": {
+    "error": {
+      "message": "Tipo de Quadra não inserido.",
+      "code": "TIPO_NAO_INSERIDO"
+    }
+  }
+}
