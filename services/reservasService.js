@@ -22,7 +22,7 @@ const getOneReserva = async (req, res) => {
 };
 
 const postReserva = async (req, res) => {
-  const novaReserva = req.body;
+  let novaReserva = req.body;
   try {
     novaReserva = await gerirReservas.criarReserva(novaReserva);
     if (novaReserva) {

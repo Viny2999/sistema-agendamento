@@ -13,7 +13,7 @@ const postDisponibilidade = async (req, res) => {
     reserva = gerirReservas.duracaoValorReserva(reserva);
     res.send(reserva);
   } else {
-    res.send(Erro.HORARIO_INDISPONIVEL);
+    let opcoes = await gerirReservas.reservasSemelhantes(reserva);
   }
 
 }

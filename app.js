@@ -41,3 +41,5 @@ app.use(function (req, res, next) {
 app.listen(port, () =>
   console.log(`The Web Server is Listening at http://${host}:${port}`)
 );
+
+module.exports = app;
