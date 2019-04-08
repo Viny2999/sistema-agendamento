@@ -1,7 +1,13 @@
 const uri = require("../config/uri");
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectID;
-const client = new MongoClient(uri.mlab, { useNewUrlParser: true });
+const settings = {
+  reconnectTries: Number.MAX_VALUE,
+  autoReconnect: true,
+  useNewUrlParser: true,
+  quiet: true
+};
+const client = new MongoClient(uri.mlab, settings);
 const dbName = "backend-assistant";
 const collection = 'Reservas';
 let db;
