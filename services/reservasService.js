@@ -46,7 +46,7 @@ const postReserva = async (req, res) => {
 const putReserva = async (req, res) => {
   let update = req.body
   try {
-    const retorno = await gerirReservas.checarReserva(update);
+    const retorno = await gerirReservas.atualizarReserva(update);
     if (retorno) {
       try {
         let result = await Reservas.updateOne(req.params.id, update);

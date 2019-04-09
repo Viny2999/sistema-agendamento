@@ -10,8 +10,6 @@ const criarReserva = async (reserva) => {
     criadoEm: new Date()
   };
 
-
-
   if (reserva.tipo) {
     if ((reserva.tipo != "SAIBRO") && (reserva.tipo != "HARD")) {
       throw Erro.TIPO_INEXISTENTE;
@@ -44,23 +42,16 @@ const criarReserva = async (reserva) => {
   return duracaoValorReserva(Object.assign(reserva, novaReserva));
 }
 
-const cancelarReserva = () => {
-  let cancelamento = {
-    status: "cancelada",
-    canceladaEm: new Date()
-  };
-
-  return cancelamento;
-}
-
-const checarReserva = async (reserva) => {
+const atualizarReserva = async (reserva) => {
+  if (reserva.criadoEm && reserva.valor && reserva.duracao) {
+    throw Erro.ATUALIZACAO_NAO_PERMITIDA;
+  }
+  
   if (reserva.tipo) {
     if ((reserva.tipo != "SAIBRO") && (reserva.tipo != "HARD")) {
       throw Erro.TIPO_INEXISTENTE;
     }
-  } else {
-    throw Erro.TIPO_NAO_INSERIDO
-  };
+  }
 
   if (reserva.inicioEm && reserva.fimEm) {
     reserva = duracaoValorReserva(reserva);
@@ -74,8 +65,6 @@ const checarReserva = async (reserva) => {
     if (!tempoReserva(novaReserva)) {
       throw Erro.HORARIO_INVALIDO;
     }
-  } else {
-    throw Erro.HORARIO_NAO_INSERIDO;
   }
 
   if (reserva.status) {
@@ -111,7 +100,6 @@ const reservasSemelhantes = (reserva) => {
     fimEm: (dataFim + 3600000)
   }
 
-
 }
 
 const duracaoValorReserva = (reserva) => {
@@ -145,8 +133,17 @@ const calcularMinutos = (reserva) => {
   return Math.floor(diffMs / 60000);
 }
 
+const cancelarReserva = () => {
+  let cancelamento = {
+    status: "cancelada",
+    canceladaEm: new Date()
+  };
+
+  return cancelamento;
+}
+
 exports.criarReserva = criarReserva;
-exports.checarReserva = checarReserva;
+exports.atualizarReserva = atualizarReserva;
 exports.cancelarReserva = cancelarReserva;
 
 exports.checarRange = checarRange;

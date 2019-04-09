@@ -1,4 +1,10 @@
 {
+  "ATUALIZACAO_NAO_PERMITIDA": {
+    "error": {
+      "message": "A atualização dos Objetos enviados não é permitida.",
+      "code": "ATUALIZACAO_NAO_PERMITIDA"
+    }
+  },
   "DATA_INVALIDA": {
     "error": {
       "message": "Formato de Data Inválido.",

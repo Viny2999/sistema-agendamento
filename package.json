@@ -1,13 +1,13 @@
 {
   "name": "backend-assistant",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "mocha 'test/apiTest.js' --timeout 10000"
+    "test": "mocha 'test/*.js' --timeout 10000"
   },
-  "author": "Viny Menezes",
+  "author": "Vinicius Menezes",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
