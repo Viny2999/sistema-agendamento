@@ -216,3 +216,24 @@ describe("POST /reservas", () => {
 			});
 	});
 });
+
+/**
+ * Testando endpoint de update de reserva (com atualização não permitida)
+ */
+describe("PUT /reservas/:id", () => {
+	let data = {
+		criadoEm: new Date()
+	};
+	it("Respondeu com 422 para o update de reservas com atualização não permitida", done => {
+		request(app)
+			.put("/reservas/5cace9e294686e051bb8e1dd")
+			.send(data)
+			.set("Accept", "application/json")
+			.expect("Content-Type", /json/)
+			.expect(422, ERRO.ATUALIZACAO_NAO_PERMITIDA)
+			.end(err => {
+				if (err) return done(err);
+				done();
+			});
+	});
+});

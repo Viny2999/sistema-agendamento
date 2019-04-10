@@ -45,7 +45,7 @@ const criarReserva = async reserva => {
 };
 
 const atualizarReserva = async reserva => {
-	if (reserva.criadoEm && reserva.valor && reserva.duracao) {
+	if (reserva.criadoEm || reserva.valor || reserva.duracao) {
 		throw ERRO.ATUALIZACAO_NAO_PERMITIDA;
 	}
 
