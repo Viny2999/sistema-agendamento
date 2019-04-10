@@ -1,6 +1,5 @@
-const Reservas = require("../utils/DB");
 const gerirReservas = require("../utils/gerirReservas");
-const Erro = require("../utils/erros");
+const gerirDisponibildades = require("../utils/gerirDisponibildades");
 
 const getDisponibilidade = (req, res) => {};
 
@@ -11,7 +10,7 @@ const postDisponibilidade = async (req, res) => {
 		reserva = gerirReservas.duracaoValorReserva(reserva);
 		res.send(reserva);
 	} else {
-		let opcoes = await gerirReservas.reservasSemelhantes(reserva);
+		let opcoes = await gerirDisponibildades.reservasSemelhantes(reserva);
 		res.send(opcoes);
 	}
 };

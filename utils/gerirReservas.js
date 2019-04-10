@@ -82,6 +82,15 @@ const atualizarReserva = async reserva => {
 	return reserva;
 };
 
+const cancelarReserva = () => {
+	let cancelamento = {
+		status: "cancelada",
+		canceladaEm: new Date()
+	};
+
+	return cancelamento;
+};
+
 const checarReservasExistentes = async reserva => {
 	let reservasExistentes = await Reservas.findByDate(reserva);
 
@@ -90,101 +99,6 @@ const checarReservasExistentes = async reserva => {
 	} else {
 		return false;
 	}
-};
-
-const reservasSemelhantes = async reserva => {
-	let dataInicio = new Date(reserva.inicioEm);
-	let dataFim = new Date(reserva.fimEm);
-	let retorno = [];
-
-	let horaAntes = {
-		inicioEm: new Date(dataInicio.getTime() - 3600000),
-		fimEm: dataInicio
-	};
-
-	let horaDepois = {
-		inicioEm: dataFim,
-		fimEm: new Date(dataFim.getTime() + 3600000)
-	};
-
-	let duasHorasAntes = {
-		inicioEm: new Date(dataInicio.getTime() - 7200000),
-		fimEm: new Date(dataInicio.getTime() - 3600000)
-	};
-
-	let duasHorasDepois = {
-		inicioEm: new Date(dataFim.getTime() + 7200000),
-		fimEm: new Date(dataFim.getTime() + 10800000)
-	};
-
-	/* if (reserva.tipo == "SAIBRO") {
-		reserva.tipo = "HARD";
-		if (await checarReservasExistentes(reserva)) {
-			reserva = duracaoValorReserva(reserva);
-			retorno.push(reserva);
-			reserva.tipo = "SAIBRO";
-			console.log(retorno);
-		} else reserva.tipo = "SAIBRO";
-	} else {
-		reserva.tipo = "SAIBRO";
-		if (await checarReservasExistentes(reserva)) {
-			reserva = duracaoValorReserva(reserva);
-			retorno.push(reserva);
-			reserva.tipo = "HARD";
-		} else reserva.tipo = "HARD";
-	} */
-	
-	reserva.inicioEm = horaAntes.inicioEm;
-	reserva.fimEm = horaAntes.fimEm;
-	if (await checarReservasExistentes(reserva)) {
-		reserva = duracaoValorReserva(reserva);
-		retorno.push(reserva);
-		console.log(retorno);
-	}
-
-	reserva.inicioEm = horaDepois.inicioEm;
-	reserva.fimEm = horaDepois.fimEm;
-	if (await checarReservasExistentes(reserva)) {
-		reserva = duracaoValorReserva(reserva);
-		retorno.push(reserva);
-		console.log(retorno);
-	}
-
-	/* if (reserva.tipo == "SAIBRO") {
-		reserva.tipo = "HARD";
-		reserva.inicioEm = horaAntes.inicioEm;
-		reserva.fimEm = horaAntes.fimEm;
-		if (await checarReservasExistentes(reserva)) {
-			reserva = duracaoValorReserva(reserva);
-			retorno.push(reserva);
-			reserva.tipo = "SAIBRO";
-		} else reserva.tipo = "SAIBRO";
-	} else {
-		reserva.tipo = "SAIBRO";
-		reserva.inicioEm = horaAntes.inicioEm;
-		reserva.fimEm = horaAntes.fimEm;
-		if (await checarReservasExistentes(reserva)) {
-			reserva = duracaoValorReserva(reserva);
-			retorno.push(reserva);
-			reserva.tipo = "HARD";
-		} else reserva.tipo = "HARD";
-	} */
-
-	reserva.inicioEm = duasHorasAntes.inicioEm;
-	reserva.fimEm = duasHorasAntes.fimEm;
-	if (await checarReservasExistentes(reserva)) {
-		reserva = duracaoValorReserva(reserva);
-		retorno.push(reserva);
-	}
-
-	reserva.inicioEm = duasHorasDepois.inicioEm;
-	reserva.fimEm = duasHorasDepois.fimEm;
-	if (await checarReservasExistentes(reserva)) {
-		reserva = duracaoValorReserva(reserva);
-		retorno.push(reserva);
-	}
-
-	return retorno;
 };
 
 const duracaoValorReserva = reserva => {
@@ -218,19 +132,9 @@ const calcularMinutos = reserva => {
 	return Math.floor(diffMs / 60000);
 };
 
-const cancelarReserva = () => {
-	let cancelamento = {
-		status: "cancelada",
-		canceladaEm: new Date()
-	};
-
-	return cancelamento;
-};
-
 exports.criarReserva = criarReserva;
 exports.atualizarReserva = atualizarReserva;
 exports.cancelarReserva = cancelarReserva;
 
 exports.checarReservasExistentes = checarReservasExistentes;
 exports.duracaoValorReserva = duracaoValorReserva;
-exports.reservasSemelhantes = reservasSemelhantes;
