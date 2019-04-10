@@ -18,5 +18,4 @@ Execute `npm i` e `npm start` para iniciar a API em `http://localhost:3000`.
 
 ## Testes
 
-Há alguns testes criados.  
 Execute `npm test` para iniciar os testes em `http://localhost:3000`.

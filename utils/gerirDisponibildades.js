@@ -21,7 +21,11 @@ const reservasSemelhantes = async reserva => {
 };
 
 const tipoDiferente = async reserva => {
-	let mock = reserva;
+	let mock = {
+		tipo: reserva.tipo,
+		inicioEm: reserva.inicioEm,
+		fimEm: reserva.fimEm
+	}
 
 	if (mock.tipo == "SAIBRO") {
 		mock.tipo = "HARD";
@@ -39,7 +43,11 @@ const tipoDiferente = async reserva => {
 };
 
 const tipoDiferentUmaHoraAntes = async reserva => {
-	let mock = reserva;
+	let mock = {
+		tipo: reserva.tipo,
+		inicioEm: reserva.inicioEm,
+		fimEm: reserva.fimEm
+	}
 	let dataInicio = new Date(mock.inicioEm);
 	let horaAntes = {
 		inicioEm: new Date(dataInicio.getTime() - 3600000),
@@ -66,7 +74,11 @@ const tipoDiferentUmaHoraAntes = async reserva => {
 };
 
 const tipoDiferentUmaHoraDepois = async reserva => {
-	let mock = reserva;
+	let mock = {
+		tipo: reserva.tipo,
+		inicioEm: reserva.inicioEm,
+		fimEm: reserva.fimEm
+	}
 	let dataFim = new Date(mock.fimEm);
 	let horaDepois = {
 		inicioEm: dataFim,
@@ -93,7 +105,11 @@ const tipoDiferentUmaHoraDepois = async reserva => {
 };
 
 const umaHoraAntes = async reserva => {
-	let mock = reserva;
+	let mock = {
+		tipo: reserva.tipo,
+		inicioEm: reserva.inicioEm,
+		fimEm: reserva.fimEm
+	}
 	let dataInicio = new Date(mock.inicioEm);
 	let horaAntes = {
 		inicioEm: new Date(dataInicio.getTime() - 3600000),
@@ -109,7 +125,11 @@ const umaHoraAntes = async reserva => {
 };
 
 const umaHoraDepois = async reserva => {
-	let mock = reserva;
+	let mock = {
+		tipo: reserva.tipo,
+		inicioEm: reserva.inicioEm,
+		fimEm: reserva.fimEm
+	}
 	let dataFim = new Date(mock.fimEm);
 	let horaDepois = {
 		inicioEm: dataFim,
@@ -125,7 +145,11 @@ const umaHoraDepois = async reserva => {
 };
 
 const duasHoraAntes = async reserva => {
-	let mock = reserva;
+	let mock = {
+		tipo: reserva.tipo,
+		inicioEm: reserva.inicioEm,
+		fimEm: reserva.fimEm
+	}
 	let dataInicio = new Date(reserva.inicioEm);
 	let duasHorasAntes = {
 		inicioEm: new Date(dataInicio.getTime() - 7200000),
@@ -141,7 +165,11 @@ const duasHoraAntes = async reserva => {
 };
 
 const duasHoraDepois = async reserva => {
-	let mock = reserva;
+	let mock = {
+		tipo: reserva.tipo,
+		inicioEm: reserva.inicioEm,
+		fimEm: reserva.fimEm
+	}
 	let dataFim = new Date(reserva.fimEm);
 	let duasHorasDepois = {
 		inicioEm: new Date(dataFim.getTime() + 7200000),

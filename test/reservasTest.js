@@ -1,4 +1,5 @@
 const Reservas = require("../utils/DB");
+const ERRO = require("../utils/erros");
 const request = require("supertest");
 const app = require("../app");
 
@@ -96,13 +97,7 @@ describe("POST /reservas", () => {
 			.send(data)
 			.set("Accept", "application/json")
 			.expect("Content-Type", /json/)
-			.expect(422, {
-				error: {
-					message:
-						"O horário solicitado não está disponível, favor selecione um outro horário.",
-					code: "HORARIO_INDISPONIVEL"
-				}
-			})
+			.expect(422, ERRO.HORARIO_INDISPONIVEL)
 			.end(err => {
 				if (err) return done(err);
 				done();
@@ -125,12 +120,7 @@ describe("POST /reservas", () => {
 			.send(data)
 			.set("Accept", "application/json")
 			.expect("Content-Type", /json/)
-			.expect(422, {
-				error: {
-					message: "Tipo de Quadra não existente.",
-					code: "TIPO_INEXISTENTE"
-				}
-			})
+			.expect(422, ERRO.TIPO_INEXISTENTE)
 			.end(err => {
 				if (err) return done(err);
 				done();
@@ -153,12 +143,7 @@ describe("POST /reservas", () => {
 			.send(data)
 			.set("Accept", "application/json")
 			.expect("Content-Type", /json/)
-			.expect(422, {
-				error: {
-					message: "Formato de Data Inválido.",
-					code: "DATA_INVALIDA"
-				}
-			})
+			.expect(422, ERRO.DATA_INVALIDA)
 			.end(err => {
 				if (err) return done(err);
 				done();
@@ -181,13 +166,7 @@ describe("POST /reservas", () => {
 			.send(data)
 			.set("Accept", "application/json")
 			.expect("Content-Type", /json/)
-			.expect(422, {
-				error: {
-					message:
-						"O horário solicitado não é valido, favor selecione horas inteiras.",
-					code: "HORARIO_INVALIDO"
-				}
-			})
+			.expect(422, ERRO.HORARIO_INVALIDO)
 			.end(err => {
 				if (err) return done(err);
 				done();
@@ -209,12 +188,7 @@ describe("POST /reservas", () => {
 			.send(data)
 			.set("Accept", "application/json")
 			.expect("Content-Type", /json/)
-			.expect(422, {
-				error: {
-					message: "Tipo de Quadra não inserido.",
-					code: "TIPO_NAO_INSERIDO"
-				}
-			})
+			.expect(422, ERRO.TIPO_NAO_INSERIDO)
 			.end(err => {
 				if (err) return done(err);
 				done();
@@ -235,12 +209,7 @@ describe("POST /reservas", () => {
 			.send(data)
 			.set("Accept", "application/json")
 			.expect("Content-Type", /json/)
-			.expect(422, {
-				error: {
-					message: "Horario não inserido",
-					code: "HORARIO_NAO_INSERIDO"
-				}
-			})
+			.expect(422, ERRO.HORARIO_NAO_INSERIDO)
 			.end(err => {
 				if (err) return done(err);
 				done();
