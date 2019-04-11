@@ -1,4 +1,4 @@
-const getMain = async (req, res) => {
+const getMain = (req, res) => {
   res.send({
     apiName: "backend-assistant",
     creator: "Vinicius Menezes",
