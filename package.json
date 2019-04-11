@@ -7,6 +7,9 @@
 		"start": "node app.js",
 		"test": "mocha 'test/*.js' --timeout 30000"
 	},
+	"engines": {
+		"node": "10.15.3"
+	},
 	"author": "Vinicius Menezes",
 	"license": "ISC",
 	"dependencies": {
