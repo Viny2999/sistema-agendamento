@@ -1,6 +1,6 @@
 # Backend Assistant
 
-A API encontra-se atualmente no [Heroku](https://backend-assistant.herokuapp.com)
+A API encontra-se atualmente no [IBM Cloud](https://backend-assistant.mybluemix.net/)
 
 ## Executar a API localmente
 
