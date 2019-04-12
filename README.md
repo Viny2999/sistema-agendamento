@@ -1,6 +1,6 @@
-# Backend Assistant
+# Agendamento API
 
-A API encontra-se atualmente no [IBM Cloud](https://backend-assistant.mybluemix.net/)
+Sistema de Agendamento de Teste para Quadras de Tênis.
 
 ## Executar a API localmente
 
